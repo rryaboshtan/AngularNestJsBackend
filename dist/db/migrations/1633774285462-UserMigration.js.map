@@ -1,0 +1,1 @@
+{"version":3,"file":"1633774285462-UserMigration.js","sourceRoot":"","sources":["../../../db/migrations/1633774285462-UserMigration.ts"],"names":[],"mappings":";;;AAEA,MAAa,0BAA0B;IAC9B,KAAK,CAAC,EAAE,CAAC,WAAwB;QACtC,OAAO,CAAC,GAAG,CAAC,QAAQ,CAAC,CAAC;IACxB,CAAC;IAEM,KAAK,CAAC,IAAI,CAAC,WAAwB;QACxC,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,CAAC;IAC1B,CAAC;CACF;AARD,gEAQC"}
