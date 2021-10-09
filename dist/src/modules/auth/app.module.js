@@ -6,16 +6,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AdminModule = void 0;
+exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const admin_repository_1 = require("./service/admin.repository");
-let AdminModule = class AdminModule {
+const app_controller_1 = require("./app.controller");
+const app_service_1 = require("./app.service");
+const typeorm_1 = require("@nestjs/typeorm");
+let AppModule = class AppModule {
 };
-AdminModule = __decorate([
+AppModule = __decorate([
     (0, common_1.Module)({
-        providers: [admin_repository_1.AdminRepository],
-        exports: [admin_repository_1.AdminRepository],
+        imports: [typeorm_1.TypeOrmModule.forRoot()],
+        controllers: [app_controller_1.AppController],
+        providers: [app_service_1.AppService],
     })
-], AdminModule);
-exports.AdminModule = AdminModule;
-//# sourceMappingURL=admin.module.js.map
+], AppModule);
+exports.AppModule = AppModule;
+//# sourceMappingURL=app.module.js.map
