@@ -5,5 +5,7 @@ export class BarScript1633779320113 implements MigrationInterface {
     console.log('Bar Script UP');
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {}
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    console.log('Bar Script DOWN');
+  }
 }

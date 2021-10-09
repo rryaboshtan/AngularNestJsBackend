@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class createSchema1633777118837 implements MigrationInterface {
+export class Register2InsertTestAdmin1633781486453 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
     }
