@@ -1,3 +1,6 @@
+import { Admin } from '../model/admin';
 export declare class AdminRepository {
-    findOne(): Promise<any>;
+    constructor();
+    private readonly admins;
+    findByLogin(login: string): Promise<Admin | undefined>;
 }
