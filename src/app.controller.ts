@@ -15,6 +15,13 @@ export class AppController {
     return this.authService.login(req.user);
   }
 
+  @UseGuards(LocalAuthGuard)
+  @Get('profile')
+  getProfile(@Request() req): any {
+    return req.user;
+    // return this.authService.login(req.user);
+  }
+
   // @Get('protected')
   // getHello(): string {
   //   return this.appService.getHello();
