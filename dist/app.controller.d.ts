@@ -3,4 +3,5 @@ export declare class AppController {
     private readonly authService;
     constructor(authService: AuthService);
     login(req: any): any;
+    getProfile(req: any): any;
 }
