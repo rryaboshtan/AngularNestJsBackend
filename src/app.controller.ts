@@ -19,6 +19,7 @@ export class AppController {
   @Get('profile')
   getProfile(@Request() req): any {
     return req.user;
+    
     // return this.authService.login(req.user);
   }
 
