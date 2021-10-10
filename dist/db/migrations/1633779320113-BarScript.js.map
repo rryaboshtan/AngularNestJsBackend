@@ -1,1 +1,0 @@
-{"version":3,"file":"1633779320113-BarScript.js","sourceRoot":"","sources":["../../../db/migrations/1633779320113-BarScript.ts"],"names":[],"mappings":";;;AAEA,MAAa,sBAAsB;IAC1B,KAAK,CAAC,EAAE,CAAC,WAAwB;QACtC,OAAO,CAAC,GAAG,CAAC,eAAe,CAAC,CAAC;IAC/B,CAAC;IAEM,KAAK,CAAC,IAAI,CAAC,WAAwB;QACxC,OAAO,CAAC,GAAG,CAAC,iBAAiB,CAAC,CAAC;IACjC,CAAC;CACF;AARD,wDAQC"}
