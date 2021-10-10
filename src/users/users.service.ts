@@ -24,4 +24,8 @@ export class UsersService {
   async findOne(username: string): Promise<Admin | undefined> {
     return this.users.find((user) => user.username === username);
   }
+
+  async find(id: number): Promise<Admin | undefined> {
+    return this.users.find((user) => user.id === id);
+  }
 }
