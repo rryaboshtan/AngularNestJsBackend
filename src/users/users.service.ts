@@ -4,7 +4,12 @@ import { Admin } from 'src/modules/admin/model/admin.entity';
 @Injectable()
 export class UsersService {
   private readonly users: Admin[] = [
-    
+    {
+      id: 1,
+      username: 'roman',
+      password: 'secret',
+      nickName: 'Roman',
+    },
   ];
 
   async findOne(username: string): Promise<Admin | undefined> {
