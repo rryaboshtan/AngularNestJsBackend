@@ -8,14 +8,14 @@ export class Admin {
   username: string;
 
   @Column({ nullable: false })
-  password: string;
+  password?: string;
 
   @Column({ nullable: false })
   nickName: string;
 
   @CreateDateColumn()
-  createdAt: string;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: string;
+  updatedAt: Date;
 }
