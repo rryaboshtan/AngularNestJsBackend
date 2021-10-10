@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Admin } from './admin.model';
 
+export type Admin = {
+  id: number;
+  username: string;
+  password: string;
+};
 
 @Injectable()
 export class UsersService {
