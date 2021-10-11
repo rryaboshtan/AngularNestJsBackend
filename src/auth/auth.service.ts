@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Admin } from 'src/modules/admin/model/admin.entity';
 import { Connection, Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,7 @@ export class AuthService {
       where: { username },
     });
 
-    if (user?.password === password) {
+    if (user && (await bcrypt.compare(password, user.password))) {
       const { password, ...rest } = user;
       return rest;
     }
