@@ -8,9 +8,7 @@ import { Connection, Repository } from 'typeorm';
 export class AuthService {
   private adminRepository: Repository<Admin>;
 
-  constructor(
-    private jwtService: JwtService,
-    private connection: Connection) {
+  constructor(private jwtService: JwtService, private connection: Connection) {
     this.adminRepository = this.connection.getRepository(Admin);
   }
 
@@ -19,7 +17,7 @@ export class AuthService {
     password: string,
   ): Promise<Admin | null> {
     const user = await this.adminRepository.findOne({
-      where: { login: username },
+      where: { username },
     });
 
     if (user?.password === password) {
