@@ -1,15 +1,18 @@
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { AuthService } from './auth.service';
+import { Connection, Repository } from 'typeorm';
+import { Admin } from 'src/modules/admin/model/admin.entity';
 
 @Controller()
 export class AuthController {
-  // constructor(private readonly appService: AppService) {}
+  private adminRepository: Repository<Admin>;
+
   constructor(
-    private readonly authService: AuthService,
-    private usersService: UsersService,
-  ) {}
+    private authService: AuthService,
+    private connection: Connection) {
+    this.adminRepository = this.connection.getRepository(Admin);
+  }
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
@@ -28,7 +31,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('refresh')
   async refresh(@Request() req) {
-    const adminId = await this.usersService.find(req.user.id);
+    const adminId = await this.adminRepository.findOne(req.user.id);
     // return req.user;
     return this.authService.login(adminId);
   }

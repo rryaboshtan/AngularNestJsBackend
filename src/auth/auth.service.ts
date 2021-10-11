@@ -1,23 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+// import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { Admin } from 'src/modules/admin/model/admin.entity';
+import { Connection, Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
-  ) { }
+  private adminRepository: Repository<Admin>;
 
-  async validateUser(username: string, password: string): Promise<Admin | null> {
-    const user = await this.usersService.findOne(username);
+  constructor(
+    private jwtService: JwtService,
+    private connection: Connection) {
+    this.adminRepository = this.connection.getRepository(Admin);
+  }
+
+  async validateUser(
+    username: string,
+    password: string,
+  ): Promise<Admin | null> {
+    const user = await this.adminRepository.findOne({
+      where: { login: username },
+    });
 
     if (user?.password === password) {
       const { password, ...rest } = user;
       return rest;
     }
-    
+
     return null;
   }
 
