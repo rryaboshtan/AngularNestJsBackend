@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { Connection, Repository } from 'typeorm';
 import { Admin } from 'src/modules/admin/model/admin.entity';
 
-@Controller()
+@Controller('auth')
 export class AuthController {
   private adminRepository: Repository<Admin>;
 
