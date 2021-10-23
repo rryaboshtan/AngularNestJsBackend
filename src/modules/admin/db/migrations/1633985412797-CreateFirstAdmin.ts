@@ -7,12 +7,12 @@ export class CreateFirstAdmin1633985412797 implements MigrationInterface {
     const adminRepository: Repository<Admin> =
       queryRunner.connection.getRepository(Admin);
 
-    if (await adminRepository.findOne({ where: { login: 'admin' } })) {
+    if (await adminRepository.findOne({ where: { username: 'admin' } })) {
       return;
     }
 
     const admin: Admin = adminRepository.create({
-      login: 'admin',
+      username: 'admin',
       password: await bcrypt.hash('secret', 10),
       nickName: 'Roman',
     });
@@ -25,7 +25,7 @@ export class CreateFirstAdmin1633985412797 implements MigrationInterface {
       queryRunner.connection.getRepository(Admin);
 
     const admin: Admin = await adminRepository.findOne({
-      where: { login: 'admin' },
+      where: { username: 'admin' },
     });
 
     if (!admin) {
