@@ -14,11 +14,11 @@ export class AuthService {
   }
 
   async validateUser(
-    username: string,
+    login: string,
     password: string,
   ): Promise<Admin | null> {
     const user = await this.adminRepository.findOne({
-      where: { username },
+      where: { login },
     });
 
     if (user && (await bcrypt.compare(password, user.password))) {
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = { name: user.username, sub: user.id };
+    const payload = { name: user.login, sub: user.id };
 
     return {
       accessToken: this.jwtService.sign(payload),
