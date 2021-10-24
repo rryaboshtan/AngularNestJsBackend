@@ -11,33 +11,29 @@ export class AuthController {
 
   constructor(
     private authService: AuthService,
-    private connection: Connection) {
+    private connection: Connection,
+  ) {
     this.adminRepository = this.connection.getRepository(Admin);
   }
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
   login(@Request() req: any): any {
-    // return req.user;
     return this.authService.login(req.user);
   }
 
   @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(LocalAuthGuard)
   @Get('profile')
   getProfile(@Request() req: any): any {
     return req.user;
-    // return this.authService.login(req.user);
   }
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(LocalAuthGuard)
   @Post('refresh')
-  async refresh(@Request() req) {
+  async refresh(@Request() req:any) {
     const adminId = await this.adminRepository.findOne(req.user.id);
-    // return req.user;
     return this.authService.login(adminId);
   }
-  // @Get('protected')
-  // getHello(): string {
-  //   return this.appService.getHello();
-  // }
 }
