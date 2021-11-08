@@ -9,7 +9,18 @@ export class MenuService {
    *
    */
   getMenu(): MenuNode[] {
-    const src = Object.values(this.nodes);
+    const nodeMap: { [id: string]: MenuNode } = {};
+    const src = Object.values(this.nodes).map((node) => {
+      const copy = { ...node };
+      nodeMap[copy.id] = copy;
+      return copy;
+    });
+
+    this.patches.forEach((patch) => {
+      if (nodeMap[patch.id]) {
+        Object.assign(nodeMap[patch.id], patch);
+      }
+    });
 
     return this.getMenuForNode(ROOT_MENU_NODE_ID, src);
   }
@@ -55,10 +66,7 @@ export class MenuService {
   }
 
   patch(...patches: PatchMenuNode[]): void {
-    this.patches = [
-      ...this.patches,
-      ...patches,
-    ]
+    this.patches = [...this.patches, ...patches];
   }
 
   remove(...ids: string[]): void {}

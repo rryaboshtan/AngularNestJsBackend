@@ -109,6 +109,7 @@ describe('MenuService Unit test', () => {
       expect(menu[0].id).toBe('foo');
       expect(menu[0].children).toHaveLength(1);
       expect(menu[0].children[0].id).toBe('bar');
+      expect(menu[0].children[0].parentId).toBe('foo');
     });
 
     describe('Patch node', () => {
