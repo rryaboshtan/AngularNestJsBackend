@@ -1,0 +1,2 @@
+GET http://localhost:3000/menu
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJzdWIiOjIsImlhdCI6MTYzNjM3MDU0NSwiZXhwIjoxNjM2MzcwNjY1fQ.-Yu65BSN5wNqb42o5VEzS29yjCILVJZ9nV_IovdUW1E 
