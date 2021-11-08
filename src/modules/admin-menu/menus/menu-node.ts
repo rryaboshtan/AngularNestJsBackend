@@ -10,5 +10,5 @@ export interface MenuNode {
   removed?: boolean;
 }
 
-export type PatchMenuNode = Pick<MenuNode, 'id'> &
+export type PatchMenuNode = Pick<MenuNode, 'id' | 'removed'> &
   Partial<Omit<MenuNode, 'id' | 'children'>>;
