@@ -139,47 +139,88 @@ describe('MenuService Unit test', () => {
         const menu = menuService.getMenu();
         expect(menu).toHaveLength(0);
       });
-        
-         it('We can run more than 1 patch', () => {
-           menuService.patch({
-             id: 'foo',
-               sortOrder: 77,
-             href: 'https://bar.com',
-           });
-           menuService.add({
-             id: 'foo',
-             parentId: ROOT_MENU_NODE_ID,
-             sortOrder: 20,
-             name: 'foo',
-             href: 'https://foo.com',
-           });
-             menuService.patch({
-               id: 'foo',
-               sortOrder: 13,
-               name: 'bar',
-             });
 
-           const menu = menuService.getMenu();
-           expect(menu[0].sortOrder).toBe(13);
-           expect(menu[0].name).toBe('bar');
-           expect(menu[0].href).toBe('https://bar.com');
-         });
+      it('We can run more than 1 patch', () => {
+        menuService.patch({
+          id: 'foo',
+          sortOrder: 77,
+          href: 'https://bar.com',
+        });
+        menuService.add({
+          id: 'foo',
+          parentId: ROOT_MENU_NODE_ID,
+          sortOrder: 20,
+          name: 'foo',
+          href: 'https://foo.com',
+        });
+        menuService.patch({
+          id: 'foo',
+          sortOrder: 13,
+          name: 'bar',
+        });
+
+        const menu = menuService.getMenu();
+        expect(menu[0].sortOrder).toBe(13);
+        expect(menu[0].name).toBe('bar');
+        expect(menu[0].href).toBe('https://bar.com');
+      });
     });
-      
-      describe('Remove node', () => {
-          it('the node can be removed by id', () => {
-              menuService.remove('foo', 'bar');
-              menuService.add({
-                id: 'foo',
-                parentId: ROOT_MENU_NODE_ID,
-                sortOrder: 20,
-                name: 'foo',
-                href: 'https://foo.com',
-              });
 
-              expect(menuService.getMenu()).toHaveLength(0);
-          })
-      }
-      )
+    describe('Remove node', () => {
+      it('the node can be removed by id', () => {
+        menuService.remove('foo', 'bar');
+        menuService.add({
+          id: 'foo',
+          parentId: ROOT_MENU_NODE_ID,
+          sortOrder: 20,
+          name: 'foo',
+          href: 'https://foo.com',
+        });
+
+        expect(menuService.getMenu()).toHaveLength(0);
+      });
+
+      it('Patch can undo the deletion', () => {
+        menuService.add({
+          id: 'foo',
+          parentId: ROOT_MENU_NODE_ID,
+          sortOrder: 20,
+          name: 'foo',
+          href: 'https://foo.com',
+        });
+        menuService.remove('foo', 'bar');
+        menuService.patch(
+          {
+            id: 'foo',
+            removed: false,
+          },
+          { id: 'bar', removed: false },
+        );
+
+        expect(menuService.getMenu()).toHaveLength(1);
+      });
+
+      it('Patch and remove methods has equal priority', () => {
+        menuService.add({
+          id: 'foo',
+          parentId: ROOT_MENU_NODE_ID,
+          sortOrder: 20,
+          name: 'foo',
+          href: 'https://foo.com',
+        });
+          
+        menuService.patch(
+          {
+            id: 'foo',
+            removed: false,
+          },
+          { id: 'bar', removed: false },
+          );
+          
+        menuService.remove('foo', 'bar');
+
+        expect(menuService.getMenu()).toHaveLength(0);
+      });
+    });
   });
 });
