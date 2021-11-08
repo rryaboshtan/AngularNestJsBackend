@@ -209,18 +209,40 @@ describe('MenuService Unit test', () => {
           name: 'foo',
           href: 'https://foo.com',
         });
-          
+
         menuService.patch(
           {
             id: 'foo',
             removed: false,
           },
           { id: 'bar', removed: false },
-          );
-          
+        );
+
         menuService.remove('foo', 'bar');
 
         expect(menuService.getMenu()).toHaveLength(0);
+      });
+    });
+
+    describe('Sorting', () => {
+      it('The nodes must to be sortable', () => {
+        menuService.add({
+          id: 'bar',
+          parentId: ROOT_MENU_NODE_ID,
+          sortOrder: 20,
+          name: 'bar',
+          href: 'https://bar.com',
+        });
+        menuService.add({
+          id: 'foo',
+          parentId: ROOT_MENU_NODE_ID,
+          sortOrder: 10,
+          name: 'foo',
+          href: 'https://foo.com',
+        });
+
+        const menu = menuService.getMenu();
+        expect(menu[0].id).toBe('foo');
       });
     });
   });

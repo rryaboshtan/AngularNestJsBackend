@@ -22,13 +22,13 @@ export class MenuService {
       }
     });
 
-    src = src.filter(node => !node.removed);
+    src = src.filter((node) => !node.removed);
 
     return this.getMenuForNode(ROOT_MENU_NODE_ID, src);
   }
 
-  getMenuForNode(id: string, src: MenuNode[]): MenuNode[] {
-    return src
+  private getMenuForNode(id: string, src: MenuNode[]): MenuNode[] {
+    const res = src
       .filter((node) => node.parentId === id)
       .map(({ href, ...node }) => {
         const children = this.getMenuForNode(node.id, src);
@@ -50,6 +50,10 @@ export class MenuService {
         };
       })
       .filter((node) => !node.removed);
+
+    res.sort((a, b) => a.sortOrder - b.sortOrder);
+
+    return res;
   }
 
   add(...nodes: MenuNode[]): void {
@@ -72,9 +76,11 @@ export class MenuService {
   }
 
   remove(...ids: string[]): void {
-    this.patch(...ids.map(id => ({
-      id,
-      removed: true,
-    })))
+    this.patch(
+      ...ids.map((id) => ({
+        id,
+        removed: true,
+      })),
+    );
   }
 }
